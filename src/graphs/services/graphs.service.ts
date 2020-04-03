@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
 
+import { GetGraphsQuery, GetNodesQuery } from '../queries/impl';
 import { Graph } from '../entities/graph.entity';
-import { QueryBus } from "@nestjs/cqrs";
-import { GetGraphsQuery } from "../queries/impl";
+import { Node } from "../entities/node.entity";
 
 @Injectable()
 export class GraphsService {
@@ -12,9 +13,7 @@ export class GraphsService {
     return this.queryBus.execute(new GetGraphsQuery());
   }
 
-  // allNodesForGraph(graphId: number): Promise<Node[]>{
-  //   return this.nodeRepository.find({
-  //     where: { graph: graphId }
-  //   });
-  // }
+  allNodesForGraph(graphId: number): Promise<Node[]> {
+    return this.queryBus.execute(new GetNodesQuery(graphId));
+  }
 }
