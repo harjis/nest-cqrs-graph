@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 
+import { CommandHandlers } from './commands/handlers';
 import { Graph } from './entities/graph.entity';
 import { GraphsController } from './controllers/graphs.controller';
 import { GraphsService } from './services/graphs.service';
@@ -16,6 +17,6 @@ import { QueryHandlers } from './queries/handlers';
     TypeOrmModule.forFeature([Node]),
   ],
   controllers: [GraphsController, NodesController],
-  providers: [GraphsService, ...QueryHandlers],
+  providers: [GraphsService, ...CommandHandlers, ...QueryHandlers],
 })
 export class GraphsModule {}

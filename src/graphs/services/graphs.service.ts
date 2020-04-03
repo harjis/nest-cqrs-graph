@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { QueryBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { GetGraphsQuery, GetNodesQuery } from '../queries/impl';
 import { Graph } from '../entities/graph.entity';
-import { Node } from "../entities/node.entity";
+import { Node } from '../entities/node.entity';
+import { CreateNodeCommand } from '../commands/impl';
 
 @Injectable()
 export class GraphsService {
-  constructor(private readonly queryBus: QueryBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   async allGraphs(): Promise<Graph[]> {
     return this.queryBus.execute(new GetGraphsQuery());
@@ -15,5 +19,9 @@ export class GraphsService {
 
   allNodesForGraph(graphId: number): Promise<Node[]> {
     return this.queryBus.execute(new GetNodesQuery(graphId));
+  }
+
+  async createNode(graphId: number, node: Node) {
+    return this.commandBus.execute(new CreateNodeCommand(graphId, node));
   }
 }
