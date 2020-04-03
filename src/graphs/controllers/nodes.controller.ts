@@ -7,8 +7,8 @@ import { Node } from '../entities/node.entity';
 export class NodesController {
   constructor(private graphsService: GraphsService) {}
 
-  @Get()
-  async all(@Param('graphId', new ParseIntPipe()) graphId: number): Promise<Node[]> {
-    return this.graphsService.allNodesForGraph(graphId);
-  }
+  // @Get()
+  // async all(@Param('graphId', new ParseIntPipe()) graphId: number): Promise<Node[]> {
+  //   return this.graphsService.allNodesForGraph(graphId);
+  // }
 }

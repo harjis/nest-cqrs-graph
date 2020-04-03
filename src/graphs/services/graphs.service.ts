@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 import { Graph } from '../entities/graph.entity';
-import { Node } from '../entities/node.entity';
+import { QueryBus } from "@nestjs/cqrs";
+import { GetGraphsQuery } from "../queries/impl";
 
 @Injectable()
 export class GraphsService {
-  constructor(
-    @InjectRepository(Graph)
-    private graphRepository: Repository<Graph>,
-    @InjectRepository(Node)
-    private nodeRepository: Repository<Node>,
-  ) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
-  allGraphs(): Promise<Graph[]> {
-    return this.graphRepository.find();
+  async allGraphs(): Promise<Graph[]> {
+    return this.queryBus.execute(new GetGraphsQuery());
   }
 
-  allNodesForGraph(graphId: number): Promise<Node[]>{
-    return this.nodeRepository.find({
-      where: { graph: graphId }
-    });
-  }
+  // allNodesForGraph(graphId: number): Promise<Node[]>{
+  //   return this.nodeRepository.find({
+  //     where: { graph: graphId }
+  //   });
+  // }
 }

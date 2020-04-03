@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { GraphsService } from "../services/graphs.service";
-import { Graph } from "../entities/graph.entity";
+import { GraphsService } from '../services/graphs.service';
+import { Graph } from '../entities/graph.entity';
 
 @Controller('graphs')
 export class GraphsController {
@@ -8,6 +8,6 @@ export class GraphsController {
 
   @Get()
   async all(): Promise<Graph[]> {
-    return this.graphsService.allGraphs()
+    return this.graphsService.allGraphs();
   }
 }
