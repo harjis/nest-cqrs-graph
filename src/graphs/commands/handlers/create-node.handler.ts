@@ -15,7 +15,7 @@ export class CreateNodeHandler implements ICommandHandler<CreateNodeCommand> {
     private readonly nodeRepository: Repository<Node>,
   ) {}
 
-  async execute(command: CreateNodeCommand) {
+  async execute(command: CreateNodeCommand): Promise<Node> {
     console.log('Async CreateNodeCommand');
     const { graphId, node } = command;
     const graph = await this.graphRepository.findOneOrFail(graphId);
