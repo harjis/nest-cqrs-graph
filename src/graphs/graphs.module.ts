@@ -9,6 +9,7 @@ import { GraphsService } from './services/graphs.service';
 import { Node } from './entities/node.entity';
 import { NodesController } from './controllers/nodes.controller';
 import { QueryHandlers } from './queries/handlers';
+import { EventHandlers } from './events/handlers';
 
 @Module({
   imports: [
@@ -17,6 +18,11 @@ import { QueryHandlers } from './queries/handlers';
     TypeOrmModule.forFeature([Node]),
   ],
   controllers: [GraphsController, NodesController],
-  providers: [GraphsService, ...CommandHandlers, ...QueryHandlers],
+  providers: [
+    GraphsService,
+    ...CommandHandlers,
+    ...QueryHandlers,
+    ...EventHandlers,
+  ],
 })
 export class GraphsModule {}

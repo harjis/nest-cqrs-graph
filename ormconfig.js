@@ -1,6 +1,6 @@
 module.exports = {
   type: 'postgres',
-  host: 'localhost',
+  host: 'localhost', //put 'postgres' here if you want to run in docker-compose
   port: 5432,
   username: 'postgres',
   password: 'postgres',

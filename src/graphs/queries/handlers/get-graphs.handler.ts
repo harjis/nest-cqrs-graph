@@ -5,13 +5,13 @@ import { Graph } from '../../entities/graph.entity';
 import { Repository } from 'typeorm';
 
 @QueryHandler(GetGraphsQuery)
-export class GetGraphsHandler implements IQueryHandler<GetGraphsQuery> {
+export class GetGraphsHandler implements IQueryHandler<GetGraphsQuery, Graph[]> {
   constructor(
     @InjectRepository(Graph)
     private readonly graphRepository: Repository<Graph>,
   ) {}
 
-  async execute(query: GetGraphsQuery): Promise<Graph[]> {
+  async execute(query: GetGraphsQuery) {
     console.log('Async GetGraphsQuery');
     return this.graphRepository.find();
   }
