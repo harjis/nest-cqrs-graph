@@ -1,10 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateNodeCommand } from '../impl';
 import { Graph } from '../../entities/graph.entity';
 import { Node } from '../../entities/node.entity';
-import { InjectRepository } from "@nestjs/typeorm";
+import { CreateNodeCommand } from './create-node.command';
 
 @CommandHandler(CreateNodeCommand)
 export class CreateNodeHandler implements ICommandHandler<CreateNodeCommand> {

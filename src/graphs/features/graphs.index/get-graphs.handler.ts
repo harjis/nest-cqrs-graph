@@ -1,11 +1,13 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetGraphsQuery } from '../impl';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Graph } from '../../entities/graph.entity';
 import { Repository } from 'typeorm';
 
+import { Graph } from '../../entities/graph.entity';
+import { GetGraphsQuery } from './get-graphs.query';
+
 @QueryHandler(GetGraphsQuery)
-export class GetGraphsHandler implements IQueryHandler<GetGraphsQuery, Graph[]> {
+export class GetGraphsHandler
+  implements IQueryHandler<GetGraphsQuery, Graph[]> {
   constructor(
     @InjectRepository(Graph)
     private readonly graphRepository: Repository<Graph>,
